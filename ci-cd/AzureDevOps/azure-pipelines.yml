@@ -30,7 +30,7 @@ stages:
       name: caCertificate
       displayName: 'Download p12 certificate'
       inputs:
-        secureFile: 'f5-consult.console.ves.volterra.io.api-creds.p12'
+        secureFile: 'myxc.p12'
     - script: |
         export ARM_ACCESS_KEY=$(key)
         export ARM_CLIENT_ID=$(CLIENT_ID)
@@ -70,7 +70,7 @@ stages:
       name: caCertificate
       displayName: 'Download p12 certificate'
       inputs:
-        secureFile: 'f5-consult.console.ves.volterra.io.api-creds.p12'
+        secureFile: 'myxc.p12'
     - script: |
         export ARM_ACCESS_KEY=$(key)
         export ARM_CLIENT_ID=$(CLIENT_ID)
