@@ -2,6 +2,17 @@
 
 Example Azure DevOps pipeline for F5 Distributed Cloud Terraform deployments. It requires F5 XC p12 certificate uploaded to the Azure DevOps Library and a number of environmental variables required for authentication to Azure Backend Storage.
 
+## Azure DevOps Library
+* F5 p12 creds name 'myxc.p12'
+
+## Azure Backend variables
+Edit the pipeline and add following variables (make sure to use type secret):
+* key (storage account key)
+* CLIENT_ID
+* CLIENT_SECRET
+* SUBSCRIPTION_ID
+* TENANT_ID
+
 ## Stages
 * Validate - checks if the code is valid - terraform validate
 * Plan - shows expected resources to be created - terraform plan
