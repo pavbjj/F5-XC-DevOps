@@ -19,5 +19,8 @@ Edit the pipeline and add following variables (make sure to use type secret):
 * Approval - stage for admin approval and review of the changes. The time is set for 60 min (it can be changed).
 * Apply stage - terraform apply
 
+## Trigger
+The pipeline is triggered by commit to the main branch.
+
 ## Example
 ![Actions Pipeline](https://github.com/pavbjj/F5-XC-DevOps/blob/main/ci-cd/AzureDevOps/images/azure-devops.png)
