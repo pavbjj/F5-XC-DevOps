@@ -4,3 +4,4 @@ This repo contains examples of CI/CD pipelines and terraform code for automation
 * example of Azure DevOps CI/CD piepline
 * Kubernetes Secure Gateway
 * sample terraform modules
+* example of AWS S3 bucket and Azure Blob storage backends
