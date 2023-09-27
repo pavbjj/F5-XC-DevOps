@@ -11,7 +11,7 @@ Edit the pipeline and add following variables (make sure to use type secret):
 
 ## Azure Backend variables
 Edit the pipeline and add following variables (make sure to use type secret):
-* key (storage account key)
+* key
 * CLIENT_ID
 * CLIENT_SECRET
 * SUBSCRIPTION_ID
