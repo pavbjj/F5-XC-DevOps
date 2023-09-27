@@ -1,0 +1,89 @@
+trigger:
+  branches:
+    include:
+    - main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: TerraformValidate
+  jobs:
+  - job: Validate
+    steps:
+    - script: |
+        export ARM_ACCESS_KEY=$(key)
+        export ARM_CLIENT_ID=$(CLIENT_ID)
+        export ARM_CLIENT_SECRET=$(CLIENT_SECRET)
+        export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+        export ARM_TENANT_ID=$(TENANT_ID)
+        terraform init
+        terraform validate
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      displayName: Terraform Validate
+
+- stage: TerraformPlan
+  jobs:
+  - job: Plan
+    steps:
+    - task: DownloadSecureFile@1
+      name: caCertificate
+      displayName: 'Download p12 certificate'
+      inputs:
+        secureFile: 'f5-consult.console.ves.volterra.io.api-creds.p12'
+    - script: |
+        export ARM_ACCESS_KEY=$(key)
+        export ARM_CLIENT_ID=$(CLIENT_ID)
+        export ARM_CLIENT_SECRET=$(CLIENT_SECRET)
+        export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+        export ARM_TENANT_ID=$(TENANT_ID)
+        echo Installing $(caCertificate.secureFilePath) to the trusted CA directory...
+        sudo chown root:root $(caCertificate.secureFilePath)
+        sudo chmod a+r $(caCertificate.secureFilePath)
+        sudo ln -s -t /etc/ssl/certs/ $(caCertificate.secureFilePath)
+        export VES_P12_PASSWORD=$(VES_P12_PASSWORD)
+        terraform init
+        terraform plan
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      displayName: Terraform Plan
+  dependsOn: TerraformValidate
+
+- stage: AdminApprove
+  displayName: Approval
+  jobs:
+  - job: approve
+    pool: server
+    displayName: Wait for approval
+    steps: 
+    - task: ManualValidation@0
+      timeoutInMinutes: 60
+      inputs:
+        notifyUsers: 'user@domain.com'
+        instructions: 'Review the plan in the next hour'
+  dependsOn: TerraformPlan
+
+- stage: TerraformApply
+  jobs:
+  - job: Apply
+    steps:
+    - task: DownloadSecureFile@1
+      name: caCertificate
+      displayName: 'Download p12 certificate'
+      inputs:
+        secureFile: 'f5-consult.console.ves.volterra.io.api-creds.p12'
+    - script: |
+        export ARM_ACCESS_KEY=$(key)
+        export ARM_CLIENT_ID=$(CLIENT_ID)
+        export ARM_CLIENT_SECRET=$(CLIENT_SECRET)
+        export ARM_SUBSCRIPTION_ID=$(SUBSCRIPTION_ID)
+        export ARM_TENANT_ID=$(TENANT_ID)
+        echo Installing $(caCertificate.secureFilePath) to the trusted CA directory...
+        sudo chown root:root $(caCertificate.secureFilePath)
+        sudo chmod a+r $(caCertificate.secureFilePath)
+        sudo ln -s -t /etc/ssl/certs/ $(caCertificate.secureFilePath)
+        export VES_P12_PASSWORD=$(VES_P12_PASSWORD)
+        terraform init 
+        terraform apply --auto-approve
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      displayName: Terraform Plan
+  dependsOn: AdminApprove
