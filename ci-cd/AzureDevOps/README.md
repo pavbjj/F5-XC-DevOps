@@ -9,4 +9,4 @@ Example Azure DevOps pipeline for F5 Distributed Cloud Terraform deployments. It
 * Apply stage - terraform apply
 
 ## Example
-![Actions Pipeline](https://github.com/pavbjj/F5-XC-DevOps/ci-cd/AzureDevOps/images/azure-devops.png)
+![Actions Pipeline](https://github.com/pavbjj/F5-XC-DevOps/blob/main/ci-cd/AzureDevOps/images/azure-devops.png)
