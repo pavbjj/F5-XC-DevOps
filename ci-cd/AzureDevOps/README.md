@@ -5,8 +5,8 @@ Example Azure DevOps pipeline for F5 Distributed Cloud Terraform deployments. It
 ## Stages
 * Validate - checks if the code is valid - terraform validate
 * Plan - shows expected resources to be created - terraform plan
-* Approval - stage for approval and review of the changes. The time is set for 60 min (it can be changed).
+* Approval - stage for admin approval and review of the changes. The time is set for 60 min (it can be changed).
 * Apply stage - terraform apply
 
 ## Example
-![Actions Pipeline](https://github.com/maruapo/juice-dev/blob/main/images/steps.png)
+![Actions Pipeline](https://github.com/pavbjj/F5-XC-DevOps/tree/main/ci-cd/AzureDevOps/images/azure-devops.png)
