@@ -1,5 +1,5 @@
-# Sample F5 Distributed Cloud Ingress 
-Secure Kubernetes Gateway allows existing F5 Customer Edge cluster to connect to the Kubernetes API server and expose and protect Kubernetes services.
+# Sample F5 Distributed Cloud Kubernetes Ingress 
+Secure Kubernetes Gateway allows existing F5 Customer Edge cluster to connect to the Kubernetes API server and expose and protect Kubernetes services. The kubeconfig along with the API server details need to be uploaded and securely stored in F5 Distributed Cloud console.
 
 ![Actions Pipeline](https://github.com/pavbjj/F5-XC-DevOps/blob/main/k8s-ingress-gateway/f5-lb-ingress/images/k8s-ingress.png)
 
