@@ -5,6 +5,10 @@ Example Azure DevOps pipeline for F5 Distributed Cloud Terraform deployments. It
 ## Azure DevOps Library
 * F5 p12 creds name 'myxc.p12'
 
+## F5 XC variables
+Edit the pipeline and add following variables (make sure to use type secret):
+* VES_P12_PASSWORD
+
 ## Azure Backend variables
 Edit the pipeline and add following variables (make sure to use type secret):
 * key (storage account key)
